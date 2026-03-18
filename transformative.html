@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بطاقة Transformative - Eid Mubarak</title>
+    <meta property="og:title" content="بطاقة تهنئة عيد الفطر - Perfection">
+    <meta property="og:description" content="صمم بطاقة تهنئة عيد الفطر باسمك بالإنجليزي والعربي.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cardeid.perfectionsa.com/transformative">
+    <meta property="og:image" content="https://cardeid.perfectionsa.com/imgtrans.jpg">
+    <meta property="og:image:alt" content="بطاقة تهنئة عيد الفطر من Perfection">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="بطاقة تهنئة عيد الفطر - Perfection">
+    <meta name="twitter:description" content="صمم بطاقة تهنئة عيد الفطر باسمك بالإنجليزي والعربي.">
+    <meta name="twitter:image" content="https://cardeid.perfectionsa.com/imgtrans.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-a: #2e98be;
+            --brand-b: #1f2f65;
+            --panel-bg: #ffffff;
+            --field-border: #d6e8f2;
+            --english-name: #1f2f65;
+            --arabic-name: #43b7dd;
+            --soft-text: #5f7482;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 400;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at top left, #c9e8f5 0%, #e8f3f9 35%, #f5fafd 70%, #f8fcff 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1180px;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 24px;
+            box-shadow: 0 24px 60px rgba(10, 46, 76, 0.18);
+            border: 1px solid #dceaf1;
+            padding: 24px;
+        }
+
+        .layout {
+            display: flex;
+            direction: ltr;
+            gap: 22px;
+            align-items: stretch;
+        }
+
+        .preview-panel {
+            flex: 1.12;
+            min-width: 320px;
+            background: #f7fbfe;
+            border-radius: 18px;
+            border: 1px solid #dfedf5;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-panel {
+            flex: 0.88;
+            min-width: 280px;
+            background: var(--panel-bg);
+            border-radius: 18px;
+            border: 1px solid #e6eef2;
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            direction: rtl;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--brand-b);
+            margin-bottom: 8px;
+            line-height: 1.2;
+            text-align: right;
+        }
+
+        .subtitle {
+            color: var(--soft-text);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .field-label {
+            color: #203547;
+            margin-bottom: 8px;
+            font-size: 1.02rem;
+            font-weight: 400;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            border: 2px solid var(--field-border);
+            border-radius: 12px;
+            padding: 13px 14px;
+            font-size: 1.05rem;
+            font-family: 'Tajawal', sans-serif;
+            margin-bottom: 12px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--brand-a);
+            box-shadow: 0 0 0 4px rgba(46, 152, 190, 0.15);
+        }
+
+        .generate-btn {
+            margin-top: 4px;
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            color: #ffffff;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.04rem;
+            font-weight: 400;
+            cursor: pointer;
+            background: linear-gradient(120deg, var(--brand-a) 0%, var(--brand-b) 100%);
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px rgba(15, 61, 99, 0.26);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .status {
+            min-height: 24px;
+            margin-top: 12px;
+            color: var(--soft-text);
+            font-size: 0.96rem;
+        }
+
+        .canvas-wrap {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 10px 26px rgba(17, 58, 89, 0.14);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .actions {
+            margin-top: 14px;
+            display: none;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .actions.active {
+            display: flex;
+        }
+
+        .actions button {
+            flex: 1;
+            min-width: 120px;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 400;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-icon {
+            width: 22px;
+            height: 22px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .btn-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .btn-text {
+            margin-inline-start: 6px;
+        }
+
+        .download-btn { background: #1f8e6c; }
+        .share-btn { background: #277fb8; }
+        .reset-btn { background: #5b6670; }
+
+        @media (max-width: 960px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .preview-panel,
+            .form-panel {
+                min-width: 0;
+            }
+
+            h1,
+            .subtitle,
+            .field-label,
+            .status {
+                text-align: center;
+            }
+
+            .actions {
+                justify-content: center;
+                flex-wrap: nowrap;
+            }
+
+            .actions button {
+                width: 54px;
+                height: 54px;
+                min-width: 54px;
+                padding: 0;
+                border-radius: 14px;
+                font-size: 1.3em;
+                gap: 0;
+            }
+
+            .actions .btn-icon {
+                display: inline-flex;
+            }
+
+            .actions .btn-text {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="layout">
+            <section class="preview-panel" aria-label="معاينة البطاقة">
+                <div class="canvas-wrap">
+                    <canvas id="posterCanvas"></canvas>
+                </div>
+            </section>
+
+            <section class="form-panel" aria-label="إدخال الأسماء">
+                <h1>بطاقة تهنئة عيد الفطر </h1>
+               
+
+                <label class="field-label" for="englishNameInput">الاسم بالإنجليزي</label>
+                <input type="text" id="englishNameInput" placeholder="your name" maxlength="36">
+
+                <label class="field-label" for="arabicNameInput">الاسم بالعربي</label>
+                <input type="text" id="arabicNameInput" placeholder="اسمك" maxlength="30">
+
+                <button class="generate-btn" id="generateBtn" onclick="generateCard()">إنشاء البطاقة</button>
+                <div class="status" id="status">جار تحميل صورة البطاقة...</div>
+
+                <div class="actions" id="actions">
+                    <button class="download-btn" onclick="downloadCard()" aria-label="تحميل البطاقة" title="تحميل البطاقة">
+                        <span class="btn-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+                                <path d="M12 4v10"></path>
+                                <path d="m8 10 4 4 4-4"></path>
+                                <path d="M5 19h14"></path>
+                            </svg>
+                        </span>
+                        <span class="btn-text">تحميل</span>
+                    </button>
+                    <button class="share-btn" onclick="shareCard()" aria-label="مشاركة البطاقة" title="مشاركة البطاقة">
+                        <span class="btn-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+                                <path d="M15 5h4v4"></path>
+                                <path d="M10 14 19 5"></path>
+                                <path d="M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"></path>
+                            </svg>
+                        </span>
+                        <span class="btn-text">مشاركة</span>
+                    </button>
+                    <button class="reset-btn" onclick="resetCard()" aria-label="إعادة تعيين" title="إعادة تعيين">
+                        <span class="btn-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+                                <path d="M3 12a9 9 0 1 0 3-6.7"></path>
+                                <path d="M3 4v5h5"></path>
+                            </svg>
+                        </span>
+                        <span class="btn-text">إعادة تعيين</span>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script>
+        const canvas = document.getElementById('posterCanvas');
+        const ctx = canvas.getContext('2d');
+        const englishNameInput = document.getElementById('englishNameInput');
+        const arabicNameInput = document.getElementById('arabicNameInput');
+        const actions = document.getElementById('actions');
+        const statusEl = document.getElementById('status');
+        const generateBtn = document.getElementById('generateBtn');
+        const posterImage = new Image();
+
+        const ENGLISH_X_RATIO = 0.5;
+        const ENGLISH_Y_RATIO = 0.82;
+        const ARABIC_X_RATIO = 0.5;
+        const ARABIC_Y_RATIO = 0.87;
+
+        const ENGLISH_COLOR = '#24396A';
+        const ARABIC_COLOR = '#45B8DC';
+
+        let imageReady = false;
+        let currentEnglishName = '';
+        let currentArabicName = '';
+
+        posterImage.onload = function onPosterLoaded() {
+            imageReady = true;
+            canvas.width = posterImage.width;
+            canvas.height = posterImage.height;
+            drawPoster('', '');
+            generateBtn.disabled = false;
+            statusEl.textContent = 'اكتب الاسمين ثم اضغط إنشاء البطاقة.';
+        };
+
+        posterImage.onerror = function onPosterError() {
+            imageReady = false;
+            generateBtn.disabled = true;
+            statusEl.textContent = 'تعذر تحميل الصورة. تأكد أن ملف trans.jpeg موجود بجانب الصفحة.';
+        };
+
+        posterImage.src = './trans.jpeg';
+        generateBtn.disabled = true;
+
+        englishNameInput.addEventListener('keypress', function onEnterPress(event) {
+            if (event.key === 'Enter') {
+                generateCard();
+            }
+        });
+
+        arabicNameInput.addEventListener('keypress', function onEnterPress(event) {
+            if (event.key === 'Enter') {
+                generateCard();
+            }
+        });
+
+        function generateCard() {
+            if (!imageReady) {
+                alert('الصورة لم تكتمل بعد. حاول مرة اخرى بعد ثواني.');
+                return;
+            }
+
+            const englishName = englishNameInput.value.trim();
+            const arabicName = arabicNameInput.value.trim();
+
+            if (!englishName || !arabicName) {
+                alert('من فضلك اكتب الاسم بالانجليزي والعربي.');
+                return;
+            }
+
+            currentEnglishName = englishName;
+            currentArabicName = arabicName;
+
+            drawPoster(englishName, arabicName);
+            actions.classList.add('active');
+            statusEl.textContent = 'تم إنشاء البطاقة بنجاح.';
+        }
+
+        function fitTextSize(text, baseSize, minSize, maxWidth, fontFamily) {
+            let size = baseSize;
+            while (size > minSize) {
+                ctx.font = `600 ${size}px ${fontFamily}`;
+                if (ctx.measureText(text).width <= maxWidth) {
+                    break;
+                }
+                size -= 1;
+            }
+            return size;
+        }
+
+        function drawPoster(englishName, arabicName) {
+            if (!imageReady) {
+                return;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(posterImage, 0, 0);
+
+            if (!englishName || !arabicName) {
+                return;
+            }
+
+            const maxTextWidth = canvas.width * 0.62;
+
+            const englishBase = Math.round(canvas.width * 0.037);
+            const englishSize = fitTextSize(englishName, englishBase, 20, maxTextWidth, "'Tajawal', sans-serif");
+            ctx.font = `600 ${englishSize}px 'Tajawal', sans-serif`;
+            ctx.fillStyle = ENGLISH_COLOR;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.direction = 'ltr';
+            ctx.fillText(englishName, canvas.width * ENGLISH_X_RATIO, canvas.height * ENGLISH_Y_RATIO);
+
+            const arabicBase = Math.round(canvas.width * 0.0385);
+            const arabicSize = fitTextSize(arabicName, arabicBase, 22, maxTextWidth, "'Tajawal', sans-serif");
+            ctx.font = `600 ${arabicSize}px 'Tajawal', sans-serif`;
+            ctx.fillStyle = ARABIC_COLOR;
+            ctx.direction = 'rtl';
+            ctx.fillText(arabicName, canvas.width * ARABIC_X_RATIO, canvas.height * ARABIC_Y_RATIO);
+
+            ctx.direction = 'ltr';
+        }
+
+        function downloadCard() {
+            if (!currentEnglishName || !currentArabicName) {
+                alert('من فضلك قم بإنشاء البطاقة أولاً.');
+                return;
+            }
+
+            canvas.toBlob(function onBlobReady(blob) {
+                if (!blob) {
+                    alert('تعذر تجهيز الصورة للتحميل.');
+                    return;
+                }
+
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `transformative_eid_${currentEnglishName}.jpg`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }, 'image/jpeg', 0.95);
+        }
+
+        function shareCard() {
+            if (!currentEnglishName || !currentArabicName) {
+                alert('من فضلك قم بإنشاء البطاقة أولاً.');
+                return;
+            }
+
+            canvas.toBlob(function onBlobReady(blob) {
+                if (!blob) {
+                    alert('تعذر تجهيز الصورة للمشاركة.');
+                    return;
+                }
+
+                const file = new File([blob], `transformative_eid_${currentEnglishName}.jpg`, { type: 'image/jpeg' });
+
+                if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                    navigator.share({
+                        files: [file],
+                        title: 'بطاقة عيد مبارك - Transformative',
+                        text: `Eid Mubarak - ${currentEnglishName}`
+                    }).catch(function onShareFail() {
+                        downloadCard();
+                    });
+                } else {
+                    downloadCard();
+                    alert('المشاركة المباشرة غير مدعومة على جهازك. تم تحميل الصورة بدل ذلك.');
+                }
+            }, 'image/jpeg', 0.95);
+        }
+
+        function resetCard() {
+            currentEnglishName = '';
+            currentArabicName = '';
+            englishNameInput.value = '';
+            arabicNameInput.value = '';
+            actions.classList.remove('active');
+            drawPoster('', '');
+            statusEl.textContent = imageReady ? 'تمت إعادة التعيين. اكتب الأسماء من جديد.' : 'جار تحميل صورة البطاقة...';
+            englishNameInput.focus();
+        }
+    </script>
+</body>
+</html>

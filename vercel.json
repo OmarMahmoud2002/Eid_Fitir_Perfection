@@ -12,6 +12,10 @@
   ],
   "routes": [
     {
+      "src": "/transformative",
+      "dest": "/transformative.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/$1"
     }
