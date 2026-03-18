@@ -280,9 +280,8 @@
             </section>
 
             <section class="form-panel" aria-label="إدخال الاسم">
-                <h1>🌙 بطاقة تهنئة عيد الفطر</h1>
+                <h1> بطاقة تهنئة عيد الفطر</h1>
  
-                <label class="label" for="nameInput">الاسم على البطاقة</label>
                 <input type="text" id="nameInput" placeholder="اكتب اسمك هنا..." maxlength="28" />
                 <button class="generate-btn" id="generateBtn" onclick="generateCard()">إنشاء البطاقة</button>
 
@@ -332,8 +331,8 @@
         const statusEl = document.getElementById('status');
         const generateBtn = document.getElementById('generateBtn');
         const posterImage = new Image();
-        const NAME_POSITION_X_RATIO = 0.60;
-        const NAME_POSITION_Y_RATIO = 0.274;
+        const NAME_POSITION_X_RATIO = 0.628;
+        const NAME_POSITION_Y_RATIO = 0.271;
 
         let currentName = '';
         let imageReady = false;
@@ -393,7 +392,7 @@
                 return;
             }
 
-            ctx.fillStyle = '#e7c539';
+            ctx.fillStyle = '#559191';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
 
@@ -404,11 +403,13 @@
                 fontSize = Math.min(canvas.width / 10, 100);
             }
 
-            ctx.font = `bold ${fontSize}px Tajawal`;
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-            ctx.shadowBlur = 15;
-            ctx.shadowOffsetX = 3;
-            ctx.shadowOffsetY = 3;
+            fontSize = Math.max(24, fontSize * 0.7);
+
+            ctx.font = `normal ${fontSize}px Tajawal`;
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
 
             const x = canvas.width * NAME_POSITION_X_RATIO;
             const y = canvas.height * NAME_POSITION_Y_RATIO;
@@ -462,7 +463,7 @@
                     navigator.share({
                         files: [file],
                         title: 'بطاقة تهنئة عيد الفطر',
-                        text: `عيد فطر مبارك من ${currentName}`
+                        text: `عيد فطر مبارك  ${currentName}`
                     }).catch(function onShareError() {
                         downloadCard();
                     });
