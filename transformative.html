@@ -87,6 +87,86 @@
             direction: rtl;
         }
 
+        .design-selector {
+            margin-bottom: 24px;
+            direction: rtl;
+        }
+
+        .design-label {
+            color: #203547;
+            margin-bottom: 12px;
+            font-size: 1.02rem;
+            font-weight: 400;
+            display: block;
+        }
+
+        .design-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .design-card {
+            position: relative;
+            cursor: pointer;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 3px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            aspect-ratio: 1;
+            background: #f0f4f7;
+        }
+
+        .design-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(46, 152, 190, 0.25);
+        }
+
+        .design-card.active {
+            border-color: var(--brand-a);
+            box-shadow: 0 8px 24px rgba(46, 152, 190, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .design-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .design-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .design-card.active::after {
+            content: '✓';
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: var(--brand-a);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeTransition {
+            0% { opacity: 0.3; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .canvas-wrap.transitioning {
+            animation: fadeTransition 0.4s ease-out;
+        }
+
         h1 {
             font-size: 2rem;
             color: var(--brand-b);
@@ -248,6 +328,15 @@
                 text-align: center;
             }
 
+            .design-cards {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+
+            .design-label {
+                text-align: center;
+            }
+
             .actions {
                 justify-content: center;
                 flex-wrap: nowrap;
@@ -271,6 +360,13 @@
                 display: none;
             }
         }
+
+        @media (max-width: 480px) {
+            .design-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -284,7 +380,24 @@
 
             <section class="form-panel" aria-label="إدخال الأسماء">
                 <h1>بطاقة تهنئة عيد الفطر </h1>
-               
+
+                <div class="design-selector">
+                    <label class="design-label">اختر التصميم المفضل لك</label>
+                    <div class="design-cards">
+                        <div class="design-card active" data-design="1" onclick="selectDesign(1)">
+                            <img src="./trans.jpeg" alt="تصميم 1" loading="lazy">
+                        </div>
+                        <div class="design-card" data-design="2" onclick="selectDesign(2)">
+                            <img src="./trans2.jpeg" alt="تصميم 2" loading="lazy">
+                        </div>
+                        <div class="design-card" data-design="3" onclick="selectDesign(3)">
+                            <img src="./trans3.jpeg" alt="تصميم 3" loading="lazy">
+                        </div>
+                        <div class="design-card" data-design="4" onclick="selectDesign(4)">
+                            <img src="./trans4.jpeg" alt="تصميم 4" loading="lazy">
+                        </div>
+                    </div>
+                </div>
 
                 <label class="field-label" for="englishNameInput">الاسم بالإنجليزي</label>
                 <input type="text" id="englishNameInput" placeholder="your name" maxlength="36">
@@ -339,37 +452,108 @@
         const actions = document.getElementById('actions');
         const statusEl = document.getElementById('status');
         const generateBtn = document.getElementById('generateBtn');
-        const posterImage = new Image();
+        const canvasWrap = document.querySelector('.canvas-wrap');
 
-        const ENGLISH_X_RATIO = 0.5;
-        const ENGLISH_Y_RATIO = 0.82;
-        const ARABIC_X_RATIO = 0.5;
-        const ARABIC_Y_RATIO = 0.87;
+        // تصاميم متعددة مع إحداثياتها الخاصة
+        const designs = {
+            1: {
+                image: new Image(),
+                src: './trans.jpeg',
+                englishX: 0.5,
+                englishY: 0.82,
+                arabicX: 0.5,
+                arabicY: 0.87,
+                englishColor: '#24396A',
+                arabicColor: '#45B8DC'
+            },
+            2: {
+                image: new Image(),
+                src: './trans2.jpeg',
+                englishX: 0.5,
+                englishY: 0.82,
+                arabicX: 0.5,
+                arabicY: 0.87,
+                englishColor: '#24396A',
+                arabicColor: '#45B8DC'
+            },
+            3: {
+                image: new Image(),
+                src: './trans3.jpeg',
+                englishX: 0.5,
+                englishY: 0.87,
+                arabicX: 0.5,
+                arabicY: 0.91,
+                englishColor: '#ffffff',
+                arabicColor: '#45B8DC'
+            },
+            4: {
+                image: new Image(),
+                src: './trans4.jpeg',
+                englishX: 0.5,
+                englishY: 0.82,
+                arabicX: 0.5,
+                arabicY: 0.87,
+                englishColor: '#24396A',
+                arabicColor: '#45B8DC'
+            }
+        };
 
-        const ENGLISH_COLOR = '#24396A';
-        const ARABIC_COLOR = '#45B8DC';
-
-        let imageReady = false;
+        let currentDesign = 1;
+        let loadedDesigns = 0;
         let currentEnglishName = '';
         let currentArabicName = '';
 
-        posterImage.onload = function onPosterLoaded() {
-            imageReady = true;
-            canvas.width = posterImage.width;
-            canvas.height = posterImage.height;
-            drawPoster('', '');
-            generateBtn.disabled = false;
-            statusEl.textContent = 'اكتب الاسم بالعربي أو الإنجليزي (أو الاثنين) ثم اضغط إنشاء البطاقة.';
-        };
+        // تحميل جميع التصاميم
+        Object.keys(designs).forEach(key => {
+            const design = designs[key];
+            design.image.onload = function() {
+                loadedDesigns++;
+                if (loadedDesigns === 1) {
+                    // عند تحميل التصميم الأول، عرضه
+                    canvas.width = design.image.width;
+                    canvas.height = design.image.height;
+                    drawPoster('', '');
+                    generateBtn.disabled = false;
+                    statusEl.textContent = 'اختر التصميم المفضل، ثم اكتب الاسم واضغط إنشاء البطاقة.';
+                }
+            };
+            design.image.onerror = function() {
+                console.error(`فشل تحميل التصميم ${key}`);
+            };
+            design.image.src = design.src;
+        });
 
-        posterImage.onerror = function onPosterError() {
-            imageReady = false;
-            generateBtn.disabled = true;
-            statusEl.textContent = 'تعذر تحميل الصورة. تأكد أن ملف trans.jpeg موجود بجانب الصفحة.';
-        };
-
-        posterImage.src = './trans.jpeg';
         generateBtn.disabled = true;
+
+        function selectDesign(designNumber) {
+            if (currentDesign === designNumber) return;
+
+            // إضافة أنيميشن انتقالي
+            canvasWrap.classList.add('transitioning');
+
+            // إزالة active من جميع الكروت
+            document.querySelectorAll('.design-card').forEach(card => {
+                card.classList.remove('active');
+            });
+
+            // إضافة active للكارت المختار
+            document.querySelector(`[data-design="${designNumber}"]`).classList.add('active');
+
+            currentDesign = designNumber;
+            const design = designs[currentDesign];
+
+            // تحديث أبعاد Canvas
+            canvas.width = design.image.width;
+            canvas.height = design.image.height;
+
+            // إعادة رسم البطاقة بالتصميم الجديد
+            drawPoster(currentEnglishName, currentArabicName);
+
+            // إزالة class الأنيميشن بعد انتهائه
+            setTimeout(() => {
+                canvasWrap.classList.remove('transitioning');
+            }, 400);
+        }
 
         englishNameInput.addEventListener('keypress', function onEnterPress(event) {
             if (event.key === 'Enter') {
@@ -384,7 +568,7 @@
         });
 
         function generateCard() {
-            if (!imageReady) {
+            if (loadedDesigns === 0) {
                 alert('الصورة لم تكتمل بعد. حاول مرة اخرى بعد ثواني.');
                 return;
             }
@@ -418,12 +602,13 @@
         }
 
         function drawPoster(englishName, arabicName) {
-            if (!imageReady) {
+            const design = designs[currentDesign];
+            if (!design.image.complete) {
                 return;
             }
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(posterImage, 0, 0);
+            ctx.drawImage(design.image, 0, 0);
 
             if (!englishName && !arabicName) {
                 return;
@@ -435,22 +620,22 @@
                 const englishBase = Math.round(canvas.width * 0.037);
                 const englishSize = fitTextSize(englishName, englishBase, 20, maxTextWidth, "'Tajawal', sans-serif");
                 ctx.font = `600 ${englishSize}px 'Tajawal', sans-serif`;
-                ctx.fillStyle = ENGLISH_COLOR;
+                ctx.fillStyle = design.englishColor;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.direction = 'ltr';
-                ctx.fillText(englishName, canvas.width * ENGLISH_X_RATIO, canvas.height * ENGLISH_Y_RATIO);
+                ctx.fillText(englishName, canvas.width * design.englishX, canvas.height * design.englishY);
             }
 
             if (arabicName) {
                 const arabicBase = Math.round(canvas.width * 0.0385);
                 const arabicSize = fitTextSize(arabicName, arabicBase, 22, maxTextWidth, "'Tajawal', sans-serif");
                 ctx.font = `600 ${arabicSize}px 'Tajawal', sans-serif`;
-                ctx.fillStyle = ARABIC_COLOR;
+                ctx.fillStyle = design.arabicColor;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.direction = 'rtl';
-                ctx.fillText(arabicName, canvas.width * ARABIC_X_RATIO, canvas.height * ARABIC_Y_RATIO);
+                ctx.fillText(arabicName, canvas.width * design.arabicX, canvas.height * design.arabicY);
             }
 
             ctx.direction = 'ltr';
@@ -472,7 +657,7 @@
                 const link = document.createElement('a');
                 link.href = url;
                 const fileBase = (currentEnglishName || currentArabicName).replace(/\s+/g, '_');
-                link.download = `transformative_eid_${fileBase}.jpg`;
+                link.download = `transformative_eid_design${currentDesign}_${fileBase}.jpg`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -522,7 +707,7 @@ ${shareName}`
             arabicNameInput.value = '';
             actions.classList.remove('active');
             drawPoster('', '');
-            statusEl.textContent = imageReady ? 'تمت إعادة التعيين. اكتب الاسم من جديد.' : 'جار تحميل صورة البطاقة...';
+            statusEl.textContent = loadedDesigns > 0 ? 'تمت إعادة التعيين. اكتب الاسم من جديد.' : 'جار تحميل صورة البطاقة...';
             englishNameInput.focus();
         }
     </script>
