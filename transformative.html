@@ -359,7 +359,7 @@
             canvas.height = posterImage.height;
             drawPoster('', '');
             generateBtn.disabled = false;
-            statusEl.textContent = 'اكتب الاسمين ثم اضغط إنشاء البطاقة.';
+            statusEl.textContent = 'اكتب الاسم بالعربي أو الإنجليزي (أو الاثنين) ثم اضغط إنشاء البطاقة.';
         };
 
         posterImage.onerror = function onPosterError() {
@@ -392,8 +392,8 @@
             const englishName = englishNameInput.value.trim();
             const arabicName = arabicNameInput.value.trim();
 
-            if (!englishName || !arabicName) {
-                alert('من فضلك اكتب الاسم بالانجليزي والعربي.');
+            if (!englishName && !arabicName) {
+                alert('من فضلك اكتب الاسم بالعربي أو الإنجليزي.');
                 return;
             }
 
@@ -425,33 +425,39 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(posterImage, 0, 0);
 
-            if (!englishName || !arabicName) {
+            if (!englishName && !arabicName) {
                 return;
             }
 
             const maxTextWidth = canvas.width * 0.62;
 
-            const englishBase = Math.round(canvas.width * 0.037);
-            const englishSize = fitTextSize(englishName, englishBase, 20, maxTextWidth, "'Tajawal', sans-serif");
-            ctx.font = `600 ${englishSize}px 'Tajawal', sans-serif`;
-            ctx.fillStyle = ENGLISH_COLOR;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.direction = 'ltr';
-            ctx.fillText(englishName, canvas.width * ENGLISH_X_RATIO, canvas.height * ENGLISH_Y_RATIO);
+            if (englishName) {
+                const englishBase = Math.round(canvas.width * 0.037);
+                const englishSize = fitTextSize(englishName, englishBase, 20, maxTextWidth, "'Tajawal', sans-serif");
+                ctx.font = `600 ${englishSize}px 'Tajawal', sans-serif`;
+                ctx.fillStyle = ENGLISH_COLOR;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.direction = 'ltr';
+                ctx.fillText(englishName, canvas.width * ENGLISH_X_RATIO, canvas.height * ENGLISH_Y_RATIO);
+            }
 
-            const arabicBase = Math.round(canvas.width * 0.0385);
-            const arabicSize = fitTextSize(arabicName, arabicBase, 22, maxTextWidth, "'Tajawal', sans-serif");
-            ctx.font = `600 ${arabicSize}px 'Tajawal', sans-serif`;
-            ctx.fillStyle = ARABIC_COLOR;
-            ctx.direction = 'rtl';
-            ctx.fillText(arabicName, canvas.width * ARABIC_X_RATIO, canvas.height * ARABIC_Y_RATIO);
+            if (arabicName) {
+                const arabicBase = Math.round(canvas.width * 0.0385);
+                const arabicSize = fitTextSize(arabicName, arabicBase, 22, maxTextWidth, "'Tajawal', sans-serif");
+                ctx.font = `600 ${arabicSize}px 'Tajawal', sans-serif`;
+                ctx.fillStyle = ARABIC_COLOR;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.direction = 'rtl';
+                ctx.fillText(arabicName, canvas.width * ARABIC_X_RATIO, canvas.height * ARABIC_Y_RATIO);
+            }
 
             ctx.direction = 'ltr';
         }
 
         function downloadCard() {
-            if (!currentEnglishName || !currentArabicName) {
+            if (!currentEnglishName && !currentArabicName) {
                 alert('من فضلك قم بإنشاء البطاقة أولاً.');
                 return;
             }
@@ -465,7 +471,8 @@
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = `transformative_eid_${currentEnglishName}.jpg`;
+                const fileBase = (currentEnglishName || currentArabicName).replace(/\s+/g, '_');
+                link.download = `transformative_eid_${fileBase}.jpg`;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -474,7 +481,7 @@
         }
 
         function shareCard() {
-            if (!currentEnglishName || !currentArabicName) {
+            if (!currentEnglishName && !currentArabicName) {
                 alert('من فضلك قم بإنشاء البطاقة أولاً.');
                 return;
             }
@@ -485,7 +492,8 @@
                     return;
                 }
 
-                const file = new File([blob], `transformative_eid_${currentEnglishName}.jpg`, { type: 'image/jpeg' });
+                const shareName = currentEnglishName || currentArabicName;
+                const file = new File([blob], `transformative_eid_${shareName}.jpg`, { type: 'image/jpeg' });
 
                 if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
                     navigator.share({
@@ -496,7 +504,7 @@
 
 Eid Mubarak 🌙
 May Allah accept our good deeds 🤍
-${currentEnglishName}`
+${shareName}`
                     }).catch(function onShareFail() {
                         downloadCard();
                     });
@@ -514,7 +522,7 @@ ${currentEnglishName}`
             arabicNameInput.value = '';
             actions.classList.remove('active');
             drawPoster('', '');
-            statusEl.textContent = imageReady ? 'تمت إعادة التعيين. اكتب الأسماء من جديد.' : 'جار تحميل صورة البطاقة...';
+            statusEl.textContent = imageReady ? 'تمت إعادة التعيين. اكتب الاسم من جديد.' : 'جار تحميل صورة البطاقة...';
             englishNameInput.focus();
         }
     </script>
