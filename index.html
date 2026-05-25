@@ -389,10 +389,19 @@
                     <label class="label">اختر تصميم البطاقة</label>
                     <div class="design-cards">
                         <button type="button" class="design-card active" data-design="1" onclick="selectDesign(1)" aria-label="اختيار التصميم الأول">
-                            <img src="./perfection1D.jpeg" alt="تصميم عيد الأضحى 1" loading="lazy">
+                            <img src="./perfection1D.jpg.jpeg" alt="تصميم عيد الأضحى 1" loading="lazy">
                         </button>
                         <button type="button" class="design-card" data-design="2" onclick="selectDesign(2)" aria-label="اختيار التصميم الثاني">
                             <img src="./perfection2D.jpg.jpeg" alt="تصميم عيد الأضحى 2" loading="lazy">
+                        </button>
+                        <button type="button" class="design-card" data-design="3" onclick="selectDesign(3)" aria-label="اختيار التصميم الثالث">
+                            <img src="./perfection3D.jpg.jpeg" alt="تصميم عيد الأضحى 3" loading="lazy">
+                        </button>
+                        <button type="button" class="design-card" data-design="4" onclick="selectDesign(4)" aria-label="اختيار التصميم الرابع">
+                            <img src="./perfection4D.jpg.jpeg" alt="تصميم عيد الأضحى 4" loading="lazy">
+                        </button>
+                        <button type="button" class="design-card" data-design="5" onclick="selectDesign(5)" aria-label="اختيار التصميم الخامس">
+                            <img src="./perfection5D.jpg.jpeg" alt="تصميم عيد الأضحى 5" loading="lazy">
                         </button>
                     </div>
                 </div>
@@ -454,7 +463,7 @@
         const designs = {
             1: {
                 image: new Image(),
-                src: './perfection1D.jpeg',
+                src: './perfection1D.jpg.jpeg',
                 nameX: 0.5,
                 nameY: 0.888,
                 nameColor: '#ffffff',
@@ -467,12 +476,45 @@
                 image: new Image(),
                 src: './perfection2D.jpg.jpeg',
                 nameX: 0.515,
-                nameY: 0.578,
+                nameY: 0.538,
                 nameColor: '#ffffff',
                 fontRatio: 0.055,
                 minFont: 34,
                 maxWidth: 0.68,
                 // shadowColor: 'rgba(0, 0, 0, 0.72)'
+            },
+            3: {
+                image: new Image(),
+                src: './perfection3D.jpg.jpeg',
+                nameX: 0.258,
+                nameY: 0.629,
+                nameColor: '#ffffff',
+                fontRatio: 0.058,
+                minFont: 34,
+                maxWidth: 0.72,
+                // shadowColor: 'rgba(0, 0, 0, 0.62)'
+            },
+            4: {
+                image: new Image(),
+                src: './perfection4D.jpg.jpeg',
+                nameX: 0.258,
+                nameY: 0.629,
+                nameColor: '#ffffff',
+                fontRatio: 0.058,
+                minFont: 34,
+                maxWidth: 0.72,
+                // shadowColor: 'rgba(0, 0, 0, 0.62)'
+            },
+            5: {
+                image: new Image(),
+                src: './perfection5D.jpg.jpeg',
+                nameX: 0.5,
+                nameY: 0.47,
+                nameColor: '#ffffff',
+                fontRatio: 0.058,
+                minFont: 34,
+                maxWidth: 0.72,
+                // shadowColor: 'rgba(0, 0, 0, 0.62)'
             }
         };
 
